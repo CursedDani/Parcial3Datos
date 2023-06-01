@@ -11,6 +11,8 @@ class ExcelDataframe():
         for i in range(len(self.df)):
             if city in self.df.iloc[i,2]:
                 return self.df.iloc[i,0]
+        print("Invalid City")
+        return False
             
     def getAirports(self):
         l = []
@@ -21,8 +23,11 @@ class ExcelDataframe():
         
     def searchIATA(self,IATA):
         for i in range(len(self.df)):
-            if IATA == self.df.iloc[i,0]:
+            if IATA in self.df.iloc[i,0]:
                 return self.df.iloc[i,2]
             
 
+if __name__ == '__main__':
+    df = ExcelDataframe()
+    print(df.getAirports())
 

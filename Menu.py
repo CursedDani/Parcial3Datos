@@ -31,11 +31,11 @@ class Menu():
     def addNewRoute(self):
         print(f'Available airports are: \n{self.df.getAirports()}\n')
         origin = input("Enter origin airport city:\n")
-        if origin not in self.df.getAirports():
-            print("Invalid origin city\n")
-            return
         oriIata= self.df.searchCity(origin)
-        dest = input("Enter destination airpot city:\n")
+        if oriIata == False:
+            print("Invalid city")
+            return
+        dest = input("Enter destination airport city:\n")
         destIata = self.df.searchCity(dest)
         price = int(input("Enter price of new route:\n"))
         self.database.addNewRoute(oriIata,destIata,price)
@@ -49,14 +49,13 @@ class Menu():
                 if self.df.searchIATA(i) not in dests:
                     dests.append(self.df.searchIATA(i))
                     findNeighbors(i)
-                
-        print(f'Available airports are: \n{self.df.getAirports()}\n')
+        
+        a = self.df.getAirports()
+        print(f'Available airports are: \n{a}\n')
         origin = input("Enter origin airport city:\n")
-        if origin not in self.df.getAirports():
-            print("Invalid origin city\n")
-            return
         oriIata= self.df.searchCity(origin)
-        print(oriIata)
+        if oriIata == False:
+            return
         findNeighbors(oriIata)
         print(f'The available destinations from this airport are: \n{dests}\n')
         dest = input("Enter destination airpot city:\n")
