@@ -25,9 +25,4 @@ class ExcelDataframe():
         for i in range(len(self.df)):
             if IATA in self.df.iloc[i,0]:
                 return self.df.iloc[i,2]
-            
-
-if __name__ == '__main__':
-    df = ExcelDataframe()
-    print(df.getAirports())
 

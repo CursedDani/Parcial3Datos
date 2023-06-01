@@ -1,6 +1,7 @@
 from AeropuertosBack import Graph
 from time import sleep
 from Dataframe import ExcelDataframe
+import textwrap 
 
 class Menu():
     def __init__(self) -> None:
@@ -29,7 +30,15 @@ class Menu():
                 print("Invalid option, please try again\n")
 
     def addNewRoute(self):
-        print(f'Available airports are: \n{self.df.getAirports()}\n')
+        print(f'Available airports are: \n')
+              
+        airports = self.df.getAirports()
+        num_columns = 5
+
+        for i, airport in enumerate(airports):
+            wrapped_airport = textwrap.fill(airport, width=50) 
+            print(f"{wrapped_airport:<30}", end="" if (i + 1) % num_columns != 0 else "\n")
+        print("\n")   
         origin = input("Enter origin airport city:\n")
         oriIata= self.df.searchCity(origin)
         if oriIata == False:
@@ -50,8 +59,15 @@ class Menu():
                     dests.append(self.df.searchIATA(i))
                     findNeighbors(i)
         
-        a = self.df.getAirports()
-        print(f'Available airports are: \n{a}\n')
+        print(f'Available airports are: \n')
+              
+        airports = self.df.getAirports()
+        num_columns = 5
+
+        for i, airport in enumerate(airports):
+            wrapped_airport = textwrap.fill(airport, width=50) 
+            print(f"{wrapped_airport:<30}", end="" if (i + 1) % num_columns != 0 else "\n")
+        print("\n")   
         origin = input("Enter origin airport city:\n")
         oriIata= self.df.searchCity(origin)
         if oriIata == False:
