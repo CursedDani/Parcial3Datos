@@ -8,32 +8,24 @@ import random
 from Dataframe import ExcelDataframe
 
 class Graph():
+
+
 	def __init__(self) -> None:
-		self.df = ExcelDataframe()
-
-		dfc = pd.read_csv('costos.csv', sep=';',header=None,names=['origen','destino','precio'])
-
-		self.dfc = dfc
-
+		self.df =  ExcelDataframe()
+		self.dfc = pd.read_csv('costos.csv', sep=';',header=None,names=['origen','destino','precio'])
 		G = nx.DiGraph() 
-
-		G = nx.from_pandas_edgelist(dfc,"origen","destino","precio",create_using=nx.DiGraph)
-
+		G = nx.from_pandas_edgelist(self.dfc,"origen","destino","precio",create_using=nx.DiGraph)
 		self.Graph = G
-
 		self.Graph.edges(data=True)
 		for u, v, attrs in G.edges(data=True):
 			weight_str = attrs['precio'].replace(",","")
 			weight_int = int(weight_str)
 			attrs['precio'] = weight_int
-		self.edges= edge_labels = nx.get_edge_attributes(self.Graph, 'precio')
-
-
+		self.edges = nx.get_edge_attributes(self.Graph, 'precio')
+		
 	def showGraph(self):
 		dfc = pd.read_csv('costos.csv', sep=';',header=None,names=['origen','destino','precio'])
-
 		G = nx.DiGraph() 
-
 		G = nx.from_pandas_edgelist(dfc,"origen","destino","precio",create_using=nx.DiGraph)
 
 		self.Graph = G
@@ -77,7 +69,7 @@ class Graph():
 
 			nx.draw_networkx_edge_labels(self.Graph,pos,rotate=False,edge_labels=self.edges)
 
-			nx.draw(subGraph,pos,with_labels=True,node_color='lightgreen',edge_color='red',edgelist=path_edges)
+			nx.draw(subGraph,pos,with_labels=True,node_color='red',edge_color='red',edgelist=path_edges)
 			precio = 0
 
 			for u,v,attrs in subGraph.edges(data=True):
